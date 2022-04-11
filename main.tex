@@ -1,0 +1,123 @@
+\documentclass[12pt, a4paper]{tufte-handout}
+\usepackage{minted}
+\usepackage{ragged2e}
+\usepackage{fontspec}
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\setmainfont{jbm-regular.ttf}[
+    Path=fonts/,
+    Extension=.ttf,
+    BoldFont=jbm-bold.ttf,
+    ItalicFont=jbm-italic.ttf,
+    BoldItalicFont=jbm-bold-italic.ttf,
+]
+
+\setmonofont{jm-regular.ttf}[
+    Path=fonts/,
+    Extension=.ttf,
+    BoldFont=jm-bold.ttf,
+    ItalicFont=jm-italic.ttf,
+    BoldItalicFont=jm-bold-italic.ttf,
+]
+
+\usemintedstyle[Julia]{gruvbox-light}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+
+\newcommand{\PINT}{\href{https://github.com/nanograv/PINT}{\textbf{PINT}}}
+\newcommand{\Julia}{\href{https://julialang.org/}{\textbf{Julia}}}
+\newcommand{\TEMPO}{\href{http://tempo.sourceforge.net/}{\textbf{TEMPO}}}
+\newcommand{\PRESTO}{\href{https://github.com/scottransom/presto}{\textbf{PRESTO}}}
+\newcommand{\SIGPROC}{\href{http://sigproc.sourceforge.net/}{\textbf{SIGPROC}}}
+\newcommand{\RIPTIDE}{\href{https://github.com/v-morello/riptide/}{\textbf{RIPTIDE}}}
+\newcommand{\Celeste}{\href{https://github.com/jeff-regier/Celeste.jl}{\textbf{Celeste}}}
+\newcommand{\DeDisp}{\href{https://github.com/astrogewgaw/DeDisp.jl}{\textbf{DeDisp.jl}}}
+\newcommand{\GHRSS}{\href{http://www.ncra.tifr.res.in/~bhaswati/GHRSS.html}{\textbf{GHRSS survey}}}
+\newcommand{\Tufte}{\href{https://tufte-latex.github.io/tufte-latex/}{\textbf{Tufte-\LaTeX}}}
+\newcommand{\AstroAccelerate}{\href{https://github.com/AstroAccelerateOrg/astro-accelerate}{\textbf{AstroAccelerate}}}
+
+\newcommand{\Repo}{\url{https://github.com/astrogewgaw/whyjulia}}
+
+\title{Why Julia?}
+\author{Ujjwal Panda}
+
+\begin{document}
+
+\newgeometry{left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm}
+\begin{titlepage}
+    \vspace*{9cm}
+    \Huge \textbf{Why \Julia{}?}\\
+    \vspace{0.5cm}
+    \LARGE Proposal to adopt \Julia{} for the \GHRSS{} codebase.\\
+    \vspace{9cm}
+    \LARGE \textbf{Ujjwal Panda}\\
+    \vspace{0.5cm}
+     : \LARGE \href{https://astrogewgaw.com}{astrogewgaw.com}\\
+     : \LARGE \href{https://github.com/astrogewgaw}{github.com/astrogewgaw}\\
+     : \LARGE \href{mailto:ujjwalpanda97@gmail.com}{ujjwalpanda97@gmail.com}\\
+    \vspace{2cm}
+    \textbf{Last updated}: \underline{\today}.
+\end{titlepage}
+\restoregeometry
+
+\marginnote{
+    \justifying
+    This document uses \Tufte{}, \LaTeX{} a class inspired by the works of
+    Edward Tufte. Edward Tufte is a statistician and artist, and Professor
+    Emeritus of Political Science, Statistics, and Computer Science at Yale
+    University. He wrote, designed, and self-published 4 classic books on data
+    visualization, which became the basis for the \textbf{Tufte style}.
+}
+
+\justifying
+As radio telescopes produce data at both unprecedented rates and resolutions,
+the task of processing such data has been handed over to highly automated data
+processing pipelines. Initially, these pipelines were nothing more than shell
+scripts that essentially automated the same commands that would have been
+entered manually by the user; now, these have become large codebases. As many
+telescopes shift to conducting their searches for pulsars and radio transients
+commensal to other observations, the need for processing data in real-time has
+emerged; as a result, many data pipelines run entirely on GPUs or clusters of
+GPUs.\\
+
+However, the need for high performance has given rise to a disturbing trend in
+the realm of pulsar astronomy software: in order to make data pipelines that are
+optimised for performance, many pulsar astronomy groups have taken to writing
+their entire pipelines from scratch\sidenote{\justifying A notable exception to
+this is the \AstroAccelerate{} organisation, which shares optimised versions of
+several pulsar data algorithms for the GPU, for use by other groups.}. While
+this guarantees performance (since all algorithms are optimised to work together
+and written in the same framework), it has lead to pipelines turning into large
+and monolithic codebases. These become difficult to extend, maintain, or even
+document.\\
+
+The solution to these problems is not immediately apparent, since some of them
+harbor ancient demons from the domain of scientific computing. One of them is
+the notorious \textbf{two language problem}. Programmers start developing new
+analysis packages and algorithms in languages like \textbf{Python}. These
+\textbf{high level languages} tend to ease development by providing abstraction
+over the nitty-gritty details of the machine\sidenote{\justifying An example of
+such details is memory management; such languages abstract this away by using
+\textbf{garbage collectors}, which deallocate unused memory automatically.}.
+However, when deploying their code in production, they resort to \textbf{low
+level languages}, such as \textbf{C}, \textbf{C++}, or \textbf{Fortran}. Since
+these have access to a machine's internal mechanisms, they allow programmers to
+write highly performant code. The only solution for the problem, until recently,
+has been to program the bottlenecks of a algorithm in a low level language, and
+then wrap the code in a high level language. Pulsar astronomy is no stranger to
+this trend\sidenote{\justifying A recent example is \RIPTIDE{}, which wraps
+kernels written in C++ with Python, thus providing a high-level but performant
+abstraction over the \textbf{F}ast \textbf{F}olding \textbf{A}lgorithm
+(\textbf{FFA})}.\\
+
+The aim of this document is to provide a solution to some of these problems, by
+introducing \Julia{} to the domain of pulsar astronomy. To the author's
+knowledge, this language has not been adopted by pulsar astronomers. It will be
+the author's attempt to make a case for doing so. Do note that this is a
+\textit{living} document: it is meant to evolve over time, and it exists as a
+repository on GitHub here: \textbf{\Repo{}}. Feel free to suggest changes and
+give feedback.\\
+
+\end{document}

@@ -1,18 +1,22 @@
-<div align="center">
+<div style="font-family:jetbrainsmono nerd font">
+<div align="left">
+<h1>Why Julia?</h1>
+<h3><u>Proposal to adopt Julia for the GHRSS codebase.</u></h3>
+<br/>
+<img
+    alt="GitHub Stars"
+    src="https://img.shields.io/github/stars/astrogewgaw/whyjulia?style=for-the-badge"
+/>
+<img
+    alt="license"
+    src="https://img.shields.io/github/license/astrogewgaw/whyjulia?style=for-the-badge"
+/>
+</div>
+<br/>
+<div align="justify">
 
-# Why Julia?
-
-## Proposal to adopt Julia for the GHRSS survey codebase.
-
-![GitHub Stars][stars]
-[![License][license]][license-info]
-[![Gitmoji][gitmoji-badge]][gitmoji]
+```bash
+```
 
 </div>
-
-
-[gitmoji]: https://gitmoji.dev
-[license-info]: https://choosealicense.com/licenses/cc-by-4.0/
-[stars]: https://img.shields.io/github/stars/astrogewgaw/whyjulia?style=for-the-badge
-[license]: https://img.shields.io/github/license/astrogewgaw/whyjulia?style=for-the-badge
-[gitmoji-badge]: https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=for-the-badge
+</div>
