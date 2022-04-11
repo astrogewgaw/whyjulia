@@ -26,6 +26,7 @@
 \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
 \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
 
+\newcommand{\CRAFT}{\href{https://doi.org/10.1071/AS09082}{CRAFT}}
 \newcommand{\PINT}{\href{https://github.com/nanograv/PINT}{\textbf{PINT}}}
 \newcommand{\Julia}{\href{https://julialang.org/}{\textbf{Julia}}}
 \newcommand{\TEMPO}{\href{http://tempo.sourceforge.net/}{\textbf{TEMPO}}}
@@ -34,6 +35,7 @@
 \newcommand{\RIPTIDE}{\href{https://github.com/v-morello/riptide/}{\textbf{RIPTIDE}}}
 \newcommand{\Celeste}{\href{https://github.com/jeff-regier/Celeste.jl}{\textbf{Celeste}}}
 \newcommand{\DeDisp}{\href{https://github.com/astrogewgaw/DeDisp.jl}{\textbf{DeDisp.jl}}}
+\newcommand{\realfast}{\href{https://doi.org/10.3847/1538-4365/aab77b}{\textbf{realfast}}}
 \newcommand{\GHRSS}{\href{http://www.ncra.tifr.res.in/~bhaswati/GHRSS.html}{\textbf{GHRSS survey}}}
 \newcommand{\Tufte}{\href{https://tufte-latex.github.io/tufte-latex/}{\textbf{Tufte-\LaTeX}}}
 \newcommand{\AstroAccelerate}{\href{https://github.com/AstroAccelerateOrg/astro-accelerate}{\textbf{AstroAccelerate}}}
@@ -78,9 +80,9 @@ processing pipelines. Initially, these pipelines were nothing more than shell
 scripts that essentially automated the same commands that would have been
 entered manually by the user; now, these have become large codebases. As many
 telescopes shift to conducting their searches for pulsars and radio transients
-commensal to other observations, the need for processing data in real-time has
-emerged; as a result, many data pipelines run entirely on GPUs or clusters of
-GPUs.\\
+commensal to other observations\sidenote{E.g.: the \CRAFT{} and \realfast{}
+surveys}, the need for processing data in real-time has emerged; as a result,
+many data pipelines run entirely on GPUs or clusters of GPUs.\\
 
 However, the need for high performance has given rise to a disturbing trend in
 the realm of pulsar astronomy software: in order to make data pipelines that are
