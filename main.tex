@@ -1,9 +1,13 @@
-\documentclass[12pt, a4paper]{tufte-handout}
+\documentclass[a4paper]{tufte-handout}
+
 \usepackage{minted}
+\usepackage{caption}
+\usepackage{graphicx}
 \usepackage{ragged2e}
 \usepackage{fontspec}
 \usepackage{hyperref}
 \usepackage{geometry}
+\usepackage{subcaption}
 
 \setmainfont{jbm-regular.ttf}[
     Path=fonts/,
@@ -26,7 +30,7 @@
 \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
 \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
 
-\newcommand{\CRAFT}{\href{https://doi.org/10.1071/AS09082}{CRAFT}}
+\newcommand{\CRAFT}{\href{https://doi.org/10.1071/AS09082}{\textbf{CRAFT}}}
 \newcommand{\PINT}{\href{https://github.com/nanograv/PINT}{\textbf{PINT}}}
 \newcommand{\Julia}{\href{https://julialang.org/}{\textbf{Julia}}}
 \newcommand{\TEMPO}{\href{http://tempo.sourceforge.net/}{\textbf{TEMPO}}}
@@ -40,19 +44,19 @@
 \newcommand{\Tufte}{\href{https://tufte-latex.github.io/tufte-latex/}{\textbf{Tufte-\LaTeX}}}
 \newcommand{\AstroAccelerate}{\href{https://github.com/AstroAccelerateOrg/astro-accelerate}{\textbf{AstroAccelerate}}}
 
-\newcommand{\Repo}{\url{https://github.com/astrogewgaw/whyjulia}}
+\begin{document}
 
 \title{Why Julia?}
 \author{Ujjwal Panda}
 
-\begin{document}
-
 \newgeometry{left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm}
 \begin{titlepage}
     \vspace*{9cm}
-    \Huge \textbf{Why \Julia{}?}\\
+    \Huge
+    \textbf{Why \Julia{}?}\\
     \vspace{0.5cm}
-    \LARGE Proposal to adopt \Julia{} for the \GHRSS{} codebase.\\
+    \LARGE
+    Proposal to adopt \Julia{} for the \GHRSS{} codebase.\\
     \vspace{9cm}
     \LARGE \textbf{Ujjwal Panda}\\
     \vspace{0.5cm}
@@ -75,25 +79,25 @@
 
 \justifying
 As radio telescopes produce data at both unprecedented rates and resolutions,
-the task of processing such data has been handed over to highly automated data
-processing pipelines. Initially, these pipelines were nothing more than shell
-scripts that essentially automated the same commands that would have been
-entered manually by the user; now, these have become large codebases. As many
-telescopes shift to conducting their searches for pulsars and radio transients
-commensal to other observations\sidenote{E.g.: the \CRAFT{} and \realfast{}
-surveys}, the need for processing data in real-time has emerged; as a result,
-many data pipelines run entirely on GPUs or clusters of GPUs.\\
+the task of processing such data has been handed over to highly automated
+\underline{\textbf{d}ata \textbf{p}rocessing \textbf{p}ipelines} (or
+\textbf{DPPs}). Initially, these DPPs were nothing more than shell scripts that
+essentially automated the same commands that would have been entered manually by
+the user; now, these have become large codebases. As many telescopes shift to
+conducting their searches for pulsars and radio transients commensal to other
+observations\sidenote{E.g.: the \CRAFT{} and \realfast{} surveys}, the need for
+processing data in real-time has emerged; as a result, many DPPs run entirely on
+GPUs or clusters of GPUs.\\
 
 However, the need for high performance has given rise to a disturbing trend in
-the realm of pulsar astronomy software: in order to make data pipelines that are
-optimised for performance, many pulsar astronomy groups have taken to writing
-their entire pipelines from scratch\sidenote{\justifying A notable exception to
-this is the \AstroAccelerate{} organisation, which shares optimised versions of
-several pulsar data algorithms for the GPU, for use by other groups.}. While
-this guarantees performance (since all algorithms are optimised to work together
-and written in the same framework), it has lead to pipelines turning into large
-and monolithic codebases. These become difficult to extend, maintain, or even
-document.\\
+the realm of pulsar astronomy software: in order to make DPPs that are optimised
+for performance, many pulsar astronomy groups have taken to writing their entire
+pipelines from scratch\sidenote{\justifying A notable exception to this is the
+\AstroAccelerate{} organisation, which shares optimised versions of several
+pulsar data algorithms for the GPU, for use by other groups.}. While this
+guarantees performance (since all algorithms are optimised to work together and
+written in the same framework), it has lead to pipelines turning into large and
+monolithic codebases.\\
 
 The solution to these problems is not immediately apparent, since some of them
 harbor ancient demons from the domain of scientific computing. One of them is
@@ -108,18 +112,11 @@ level languages}, such as \textbf{C}, \textbf{C++}, or \textbf{Fortran}. Since
 these have access to a machine's internal mechanisms, they allow programmers to
 write highly performant code. The only solution for the problem, until recently,
 has been to program the bottlenecks of a algorithm in a low level language, and
-then wrap the code in a high level language. Pulsar astronomy is no stranger to
-this trend\sidenote{\justifying A recent example is \RIPTIDE{}, which wraps
-kernels written in C++ with Python, thus providing a high-level but performant
-abstraction over the \textbf{F}ast \textbf{F}olding \textbf{A}lgorithm
-(\textbf{FFA})}.\\
+then wrap the code in a high level language.\\
 
-The aim of this document is to provide a solution to some of these problems, by
-introducing \Julia{} to the domain of pulsar astronomy. To the author's
-knowledge, this language has not been adopted by pulsar astronomers. It will be
-the author's attempt to make a case for doing so. Do note that this is a
-\textit{living} document: it is meant to evolve over time, and it exists as a
-repository on GitHub here: \textbf{\Repo{}}. Feel free to suggest changes and
-give feedback.\\
+Pulsar astronomy is no stranger to such trends\sidenote{\justifying A recent
+example is \RIPTIDE{}, which wraps kernels written in C++ with Python, thus
+providing a high-level but performant abstraction over the \textbf{F}ast
+\textbf{F}olding \textbf{A}lgorithm (\textbf{FFA})}.
 
 \end{document}
